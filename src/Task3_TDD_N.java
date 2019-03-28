@@ -32,16 +32,14 @@ public class Task3_TDD_N {
     public void negativeTest() {
         parser.add("list", "l", Parser.STRING);
         parser.parse("--list=-1,2,-3");
-        List<Integer> testList = Arrays.asList(-1, 2, -3);
+        List<Integer> testList = Arrays.asList(-3, -1, 2);
         assertEquals(parser.getIntegerList("l"), testList);
     }
 
     @Test
     public void emptyTest() {
         parser.add("list", "l", Parser.STRING);
-        parser.parse("--list=1,2-,3)");
-        List<Integer> testList = Arrays.asList(1, 2, 3);
-        assertTrue(parser.getIntegerList("l").isEmpty());
+        assertTrue(parser.getIntegerList("a").isEmpty());
     }
 
     @Test
