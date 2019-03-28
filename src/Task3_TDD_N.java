@@ -56,4 +56,9 @@ public class Task3_TDD_N {
         parser.parse("--list=1b2'3");
         assertEquals(parser.getIntegerList("l"), testList);
     }
+
+    @Test
+    public void uselessTest() {
+        assertEquals(1, 1);
+    }
 }
