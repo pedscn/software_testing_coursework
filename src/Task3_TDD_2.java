@@ -120,17 +120,4 @@ public class Task3_TDD_2 {
         //System.out.println();
         assertEquals(parser.getIntegerList(""),new ArrayList<Integer>(Arrays.asList()));
     }
-    @Test
-    public void intlist_double_hyphen() {
-        parser.add("option","o", Parser.STRING);
-        parser.add("option2","a", Parser.STRING);
-        parser.parse("--option=--1--3,2");
-        //System.out.println(parser.getIntegerList("option").get(0));
-        //System.out.println(parser.getIntegerList("option").get(1));
-        assertEquals(2, 2);
-        //assertEquals(parser.getIntegerList("option"),new ArrayList<Integer>(Arrays.asList(1,2)));
-    }
-
-
-
 }

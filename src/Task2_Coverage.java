@@ -231,9 +231,7 @@ public class Task2_Coverage {
         assertEquals(parser.getString("h"), "output.txt");
     }
 
-//------------------------------------------------------------------------------------Functional Tests
-
-//Add options with a shortcut
+//---------------------Functional Tests--------------------
 
     //3.1
     @Test
@@ -255,13 +253,26 @@ public class Task2_Coverage {
 
 
     //3.2
-
     @Test
     public void add_test_numAlphaUnderscore_success() {
         parser.add("_test_55","_t55", Parser.STRING);
         parser.parse("--_test_55=output.txt");
         System.out.println(parser.getString("_test_55"));
         assertEquals(parser.getString("_test_55"), "output.txt");
+    }
+    @Test
+    public void add_test_numAlphaUnderscore_success_2() {
+        parser.add("_test_55","_t55_", Parser.STRING);
+        parser.parse("--_test_55=output.txt");
+        System.out.println(parser.getString("_test_55"));
+        assertEquals(parser.getString("_t55_"), "output.txt");
+    }
+    @Test
+    public void add_test_numAlphaUnderscore_success_3() {
+        parser.add("_test_55","_____t___5__5____", Parser.STRING);
+        parser.parse("--_test_55=output.txt");
+        System.out.println(parser.getString("_test_55"));
+        assertEquals(parser.getString("_____t___5__5____"), "output.txt");
     }
     @Test(expected = RuntimeException.class)
     public void add_test_runtimeExceptionFirstNum() { //Makes sure runtime exception is thrown
@@ -276,9 +287,26 @@ public class Task2_Coverage {
         parser.add("test_option.","a", Parser.STRING);
     }
     @Test(expected = RuntimeException.class)
+    public void add_test_runtimeExceptionNonAlphaChar_2() { //Makes sure runtime exception is thrown
+        parser.add("test_option$","a", Parser.STRING);
+    }
+    @Test(expected = RuntimeException.class)
+    public void add_test_runtimeExceptionNonAlphaChar_3() { //Makes sure runtime exception is thrown
+        parser.add("test_op@tion","a", Parser.STRING);
+    }
+    @Test(expected = RuntimeException.class)
     public void add_test_runtimeExceptionNonAlphaCharShortcut() { //Makes sure runtime exception is thrown
         parser.add("test_option","a.", Parser.STRING);
     }
+    @Test(expected = RuntimeException.class)
+    public void add_test_runtimeExceptionNonAlphaCharShortcut_2() { //Makes sure runtime exception is thrown
+        parser.add("test_option","a&", Parser.STRING);
+    }
+    @Test(expected = RuntimeException.class)
+    public void add_test_runtimeExceptionNonAlphaCharShortcut_3() { //Makes sure runtime exception is thrown
+        parser.add("test_option","(a", Parser.STRING);
+    }
+
     //3.3
     @Test
     public void add_test_caseSensitivity_1() {
@@ -309,6 +337,13 @@ public class Task2_Coverage {
         assertEquals(parser.getString("TEST_OPTION"), "output.txt");
     }
     @Test
+    public void add_test_caseSensitivity_5() {
+        parser.add("TeSt_OpTIoN","a", Parser.STRING);
+        parser.parse("--TeSt_OpTIoN=output.txt");
+        //System.out.println(parser.toString());
+        assertEquals(parser.getString("TeSt_OpTIoN"), "output.txt");
+    }
+    @Test
     public void add_test_caseSensitivity_1_Shortcut() {
         parser.add("test_option","A", Parser.STRING);
         parser.parse("-A=output.txt");
@@ -336,6 +371,13 @@ public class Task2_Coverage {
         //System.out.println(parser.toString());
         assertEquals(parser.getString("A"), "output.txt");
     }
+    @Test
+    public void add_test_caseSensitivity_5_Shortcut() {
+        parser.add("test_option","aA", Parser.STRING);
+        parser.parse("-aA=output.txt");
+        //System.out.println(parser.toString());
+        assertEquals(parser.getString("aA"), "output.txt");
+    }
     //3.4
     @Test
     public void add_test_optionEqualsShortcut_1() {
@@ -350,8 +392,9 @@ public class Task2_Coverage {
         parser.add("output","o", Parser.STRING);
         parser.add("o","a", Parser.STRING);
         parser.parse("--o=output.txt");
+        parser.parse("-o=output2.txt");
         //System.out.println(parser.toString());
-        assertEquals(parser.getString("a"), "output.txt");
+        assertEquals(parser.getString("o"), "output.txt");
     }
     @Test
     public void add_test_optionEqualsShortcut_3() {
@@ -371,7 +414,7 @@ public class Task2_Coverage {
     }
     @Test
     public void add_test_BoolFalse_2() {
-        parser.add("optimise","o", Parser.BOOLEAN);
+        parser.add("optimise","o", Parser.STRING);
         parser.parse("--optimise=0");
         //System.out.println(parser.toString());
         assertEquals(parser.getBoolean("optim"
@@ -386,7 +429,7 @@ public class Task2_Coverage {
     }
     @Test
     public void add_test_BoolTrue_2() {
-        parser.add("optimise","O", Parser.BOOLEAN);
+        parser.add("optimise","O", Parser.STRING);
         parser.parse("-O=true");
         //System.out.println(parser.toString());
         assertEquals(parser.getBoolean("optimise"), true);
@@ -599,6 +642,13 @@ public class Task2_Coverage {
         //System.out.println(parser.toString());
         assertEquals(parser.getString("option"), "2.txt");
     }
+    @Test
+    public void parse_test_multipleParseAssignments_2() {
+        parser.add("option",Parser.STRING);
+        parser.parse("--option=1.txt --option=3.txt --option=4.txt --option=5.txt --option=6.txt");
+        //System.out.println(parser.toString());
+        assertEquals(parser.getString("option"), "6.txt");
+    }
     //5.7
     @Test
     public void parse_test_noAssignment() {
@@ -650,5 +700,4 @@ public class Task2_Coverage {
     public void parse_test_charNotProvided() {
         assertEquals(parser.getChar("option_1"), '\0');
     }
-
 }
