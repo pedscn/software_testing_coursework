@@ -27,7 +27,7 @@ public class Task1_Functional {
     public void example_test_2() {
         parser.add("test_option", "h", Parser.STRING);
         parser.parse("-h=output.txt");
-        parser.parse("--test_option=output.txt");//only one of this or line above needed.
+        parser.parse("--test_option=output.txt");
         assertEquals(parser.getString("test_option"), "output.txt");
         assertEquals(parser.getString("h"), "output.txt");
     }

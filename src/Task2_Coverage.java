@@ -14,7 +14,6 @@ public class Task2_Coverage {
     public void set_up() {
         parser = new Parser();
         optionmap = new OptionMap();
-
     }
 
     @Test
@@ -217,7 +216,6 @@ public class Task2_Coverage {
         assertEquals(parser.getString("o"), "output.txt");
     }
 
-
     @Test
     public void example_test_2() {
         parser.add("test_option", "h", Parser.STRING);
@@ -233,7 +231,6 @@ public class Task2_Coverage {
         parser.add("test_option_1", "a", Parser.STRING);
         parser.parse("--test_option_1=output.txt");
         parser.add("test_option_1", "a", Parser.STRING);
-
         assertEquals(parser.getString("test_option_1"), "");
     }
 
@@ -242,7 +239,6 @@ public class Task2_Coverage {
         parser.add("test_option_1", "a", Parser.STRING);
         parser.parse("--test_option_1=output.txt");
         parser.add("test_option_1", "a", Parser.STRING);
-
         assertEquals(parser.getString("test_option_1"), "");
     }
 
@@ -499,7 +495,6 @@ public class Task2_Coverage {
     public void add_test_no_short_caseSensitivity_2() {
         parser.add("test_option", Parser.STRING);
         parser.parse("--TEST_OPTION=output.txt");
-
         assertEquals(parser.getString("test_option"), "");
     }
 
